@@ -68,6 +68,19 @@ class HashTableOpen:
             value: The value to associate with the key.
         """
         pass  # TODO: implement this
+        starting_index = self._hash(key)
+
+        for i in range(self.size):
+            index = (starting_index + i) % self.size
+            if self.table[index] is None:
+                self.table[index] = (key, value)
+                self.count += 1
+                return
+            elif self.table[index][0] == key:
+                self.table[index] = (key, value)
+                return
+
+        raise Exception("Hash table is full")
 
     # ── TODO 3: Get ───────────────────────────────────────────────
 
