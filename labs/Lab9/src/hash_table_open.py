@@ -67,7 +67,6 @@ class HashTableOpen:
             key:   The key to insert.
             value: The value to associate with the key.
         """
-        pass  # TODO: implement this
         starting_index = self._hash(key)
 
         for i in range(self.size):
@@ -108,7 +107,17 @@ class HashTableOpen:
         Raises:
             KeyError: If the key is not found.
         """
-        pass  # TODO: implement this
+
+        starting_index = self._hash(key)
+
+        for i in range(self.size):
+            index = (starting_index + i) % self.size
+            if self.table[index] is None:
+                raise KeyError("Not found")
+            elif self.table[index][0] == key:
+                return self.table[index][1]
+
+        raise KeyError("Not found")
 
     # ── TODO 4: Delete ────────────────────────────────────────────
 
