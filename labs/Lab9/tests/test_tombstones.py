@@ -24,7 +24,12 @@ class TestTombstones:
         This is the core tombstone test — if delete uses None instead
         of a tombstone, this test will fail because the probe chain breaks.
         """
-        pass  # TODO: write this test
+        ht = HashTableOpen(size=3)
+        ht.put("x", 10)
+        ht.put("Greece", 20)
+        ht.put("y", 30)
+        ht.delete("Greece")
+        assert "Greece" not in ht
 
     def test_tombstone_slot_reused_on_insert(self):
         """
@@ -35,7 +40,11 @@ class TestTombstones:
         This tests that put() treats tombstones as open slots
         for new insertions.
         """
-        pass  # TODO: write this test
+        ht = HashTableOpen(size=3)
+        ht.put(1, 10)
+        ht.delete(1)
+        ht.put(2, 20)
+        assert 1 not in ht
 
     def test_count_correct_through_delete_and_reinsert(self):
         """
@@ -46,4 +55,15 @@ class TestTombstones:
 
         Verify len() is correct after every step.
         """
-        pass  # TODO: write this test
+        ht = HashTableOpen(size=3)
+        ht.put(1, 10)
+        ht.put(2, 20)
+        ht.put(3, 30)
+        assert len(ht) == 3
+        ht.delete(2)
+        assert len(ht) == 2
+        ht.put(2, 200)
+        assert len(ht) == 3
+        ht.delete(1)
+        ht.delete(3)
+        assert len(ht) == 1
