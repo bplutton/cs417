@@ -44,8 +44,6 @@ def bubble_sort(a_list):
     return a_list
 
 
-# ── TODO 2: Short Bubble Sort ───────────────────────────────────
-
 
 def short_bubble_sort(a_list):
     """
@@ -111,7 +109,14 @@ def insertion_sort(a_list):
     Returns:
         The same list, now sorted in ascending order.
     """
-    pass  # TODO: implement this
+    for i in range(1, len(a_list)):
+        current_value = a_list[i]
+        position = i - 1
+        while position >= 0 and a_list[position] > current_value:
+            a_list[position + 1] = a_list[position]
+            position -= 1
+        a_list[position + 1] = current_value
+    return a_list
 
 
 # ── TODO 4: Counted Versions ────────────────────────────────────
