@@ -143,7 +143,8 @@ def bubble_sort_counted(a_list):
         bubble_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 2)
     """
-    pass  # TODO: implement this
+    pass # TODO: implement this
+    
 
 
 def insertion_sort_counted(a_list):
