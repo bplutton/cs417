@@ -143,7 +143,19 @@ def bubble_sort_counted(a_list):
         bubble_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 2)
     """
-    pass # TODO: implement this
+    comparisons = 0
+    exchanges = 0
+    temp = 0
+    for i in range(len(a_list) - 1):
+        for j in range(len(a_list) - 1 - i):
+            comparisons += 1
+            if a_list[j] > a_list[j + 1]:
+                # a_list[j], a_list[j + 1] = a_list[j + 1], a_list[j]
+                temp = a_list[j]
+                a_list[j] = a_list[j + 1]
+                a_list[j + 1] = temp
+                exchanges += 1
+    return a_list, comparisons, exchanges
     
 
 
@@ -168,5 +180,23 @@ def insertion_sort_counted(a_list):
     Example:
         insertion_sort_counted([3, 1, 2])
         → ([1, 2, 3], 3, 4)
+
+    Each time you check whether a_list[position] > current_value is one comparison
+    Each shift (moving an item one position right) is one data move
+    The final placement of current_value into its position is one data move
     """
-    pass  # TODO: implement this
+    comparisons = 0
+    data_moves = 0
+    for i in range(1, len(a_list)):
+        current_value = a_list[i]
+        position = i - 1
+        while position >= 0 and a_list[position] > current_value:
+            a_list[position + 1] = a_list[position]
+            position -= 1
+            data_moves += 1  # count the shift
+            comparisons += 1  # count the comparison that succeeded
+        a_list[position + 1] = current_value
+        data_moves += 1  # count the final placement
+        if position >= 0:
+            comparisons += 1  # count the comparison that failed (don't count the last one if position < 0)
+    return a_list, comparisons, data_moves
