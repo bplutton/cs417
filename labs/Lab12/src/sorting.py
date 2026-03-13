@@ -18,6 +18,27 @@ Do NOT change the function signatures or the provided code.
 
 Run tests:
     pytest -v
+
+Organize the starter files into the same structure you've been using:
+
+Lab12/
+├── README.md
+├── conftest.py
+├── src/
+│   └── sorting.py
+├── tests/
+│   └── test_sorting.py
+└── notebooks/
+    └── analysis.ipynb
+
+Steps:
+
+Create the src/, tests/, and notebooks/ directories
+Move sorting.py into src/
+Move test_sorting.py into tests/
+Move analysis.ipynb into notebooks/
+Keep conftest.py in the Lab12 root
+Verify: run pytest -v — all tests should fail (nothing is implemented yet)
 """
 
 
