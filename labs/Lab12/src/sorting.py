@@ -253,6 +253,10 @@ def _partition(a_list, first, last):
             a_list[left_mark] = a_list[right_mark]
             a_list[right_mark] = temp
     
+    temp = a_list[first]
+    a_list[first] = a_list[right_mark]
+    a_list[right_mark] = temp
+    
     return right_mark
 
 
