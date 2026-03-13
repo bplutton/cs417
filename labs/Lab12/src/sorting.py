@@ -52,8 +52,53 @@ def _gap_insertion_sort(a_list, start, gap):
         a_list: The full list being sorted.
         start: The starting index of this sublist.
         gap: The distance between sublist elements.
+
+    Task 1: _gap_insertion_sort(a_list, start, gap) — Shell Sort's Engine
+    This is your insertion sort from Lab 11, adapted to work on items that are gap positions apart instead of adjacent. The outer shell_sort function (provided) calls this helper repeatedly with decreasing gaps.
+
+    The adaptation is mechanical: everywhere Lab 11's insertion sort used 1, you use gap:
+
+    Loop from start + gap to len(a_list), stepping by gap
+    Save a_list[i] as current_value, set position = i
+    Walk backward by gap: while position >= gap and a_list[position - gap] > current_value, shift right by gap
+    Place current_value at the insertion point
+    Example with gap = 4 on positions {0, 4, 8} = {54, 77, 20}:
+
+    Start with sublist [54, 77, 20]:
+    i=4: 77 > 54? No shift needed. [54, 77, 20]
+    i=8: 20 < 77? Shift 77 right. 20 < 54? Shift 54 right. Place 20. [20, 54, 77]
+    pytest -v -k "TestShellSort"
+    git add -A && git commit -m "Lab 12: Implement gap insertion sort for shell sort"
+
+    Example with gap = 4 and length of list = 10:
+    List: [54, 26, 93, 17, 77, 31, 44, 55, 20, 65]
+    gap = 4
+    Iteration 1: i = 4
+    current_value = 77
+    position = 4
+    Compare 77 with 26 (position - gap = 0):
+    77 > 26? No shift needed. List remains the same: [54, 26, 93, 17, 77, 31, 44, 55, 20, 65]
+    Iteration 2: i = 8
+    current_value = 20
+    position = 8
+    Compare 20 with 77 (position - gap = 4):
+    20 < 77? Shift 77 right. List becomes: [54, 26, 93, 17, 20, 31, 44, 55, 77, 65]
     """
-    pass  # TODO: implement this
+    comparisons = 0
+    data_moves = 0
+    for i in range(start + gap, len(a_list), gap):
+        current_value = a_list[i]
+        position = i
+        while position >= gap and a_list[position - gap] > current_value:
+            a_list[position] = a_list[position - gap]
+            position -= gap
+            data_moves += 1  # count the shift
+            comparisons += 1  # count the comparison that succeeded
+        a_list[position] = current_value
+        data_moves += 1  # count the final placement
+        if position >= 0:
+            comparisons += 1  # count the comparison that failed (don't count the last one if position < 0)
+    return a_list, comparisons, data_moves
 
 
 def shell_sort(a_list):
