@@ -116,9 +116,6 @@ def shell_sort(a_list):
     return a_list
 
 
-# ── TODO 2: Merge Sort — The Merge Step ──────────────────────────
-
-
 def merge_sort(a_list):
     """
     Sort a_list in ascending order using merge sort.
@@ -147,6 +144,25 @@ def merge_sort(a_list):
 
     Returns:
         The same list, now sorted in ascending order.
+
+    Task 2: Merge Step in merge_sort(a_list) — Combining Sorted Halves
+    The recursive splitting and the function structure are provided. You fill in the merge step — the part that combines two sorted halves (left and right) back into a_list.
+
+    The merge uses three index variables, all starting at 0:
+
+    i walks through left
+    j walks through right
+    k fills positions in a_list
+    Three while loops:
+
+    Main merge — while both halves have items (i < len(left) and j < len(right)):
+
+    Compare left[i] and right[j]
+    Take the smaller one (use <= for stability): put it at a_list[k]
+    Advance the index you took from, and advance k
+    Left remainder — while i < len(left): copy left[i] to a_list[k], advance both
+
+    Right remainder — while j < len(right): copy right[j] to a_list[k], advance both
     """
     if len(a_list) <= 1:
         return a_list
@@ -163,7 +179,28 @@ def merge_sort(a_list):
     # Initialize: i = 0, j = 0, k = 0
     # Then write the three while loops described above.
 
-    pass  # TODO: replace this with the merge logic
+    i = j = k = 0
+
+    # a_list = []  # Fill later with merged items
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:  # Use <= for stability
+            a_list[k] = left[i]
+            i += 1
+            k += 1
+        else:
+            a_list[k] = right[j]
+            j += 1
+            k += 1
+    
+    while i < len(left):
+        a_list[k] = left[i]
+        i += 1
+        k += 1
+
+    while j < len(right):
+        a_list[k] = right[j]
+        j += 1
+        k += 1
 
     return a_list
 
@@ -199,7 +236,24 @@ def _partition(a_list, first, last):
     Returns:
         The index where the pivot ended up (the split point).
     """
-    pass  # TODO: implement this
+    pivot_value: int = a_list[first]
+    left_mark: int = first + 1
+    right_mark: int = last
+    done: bool = False
+    
+    while not done:
+        if left_mark <= right_mark and a_list[left_mark] <= pivot_value:
+            left_mark += 1
+        elif left_mark <= right_mark and a_list[right_mark] >= pivot_value:
+            right_mark -= 1
+        elif right_mark < left_mark:
+            done = True
+        else:
+            temp = a_list[left_mark]
+            a_list[left_mark] = a_list[right_mark]
+            a_list[right_mark] = temp
+    
+    return right_mark
 
 
 def _quick_sort_helper(a_list, first, last):
